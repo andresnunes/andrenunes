@@ -1,20 +1,32 @@
-<!DOCTYPE html>
+{% extends 'blog/base.html' %}
+{% load static %}
 <html>
     <head>
+        <link rel="stylesheet" type="text/css" href="{% static 'css/blog.css' %}"/>
+        <link href="//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext" rel="stylesheet" type="text/css">
 
     </head>
     <body>
         <div>
-            <h1><a href="/">Blog do André</a></h1>
+            <h1 class="page-header"><a href="/">Blog do André</a></h1>
         </div>
-        {% for post in posts %}
-            <div>
-                <p>publised: {{ post.publised_date }}</p>
-                <h2><a href="" >{{ post.title }}</a></h2>
-                <p>{{ post.text|linebreaksbr }}</p>
-
+        <div class="content container">
+            <div class="row">
+                <div class="col-md-8">
+                    {% block content %}
+                        {% for post in posts %}
+                            <div class="post">
+                                <div class="date">
+                                    published: {{ post.published_date }}
+                                </div>
+                                <h2><a href="{% url 'post_detail' pkey=post.pk %}">{{ post.title }}</a></h2>
+                                <p>{{ post.text|linebreaksbr }}</p>
+                            </div>
+                        {% endfor %}
+                    {% endblock %}
+                </div>
             </div>
-        {% endfor %}
-
+        </div>
+        <a href="base.html">AAAAA</a>
     </body>
 </html>
